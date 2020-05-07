@@ -1,7 +1,7 @@
 # OpenCV-short-notes
 ## 10. cv.split, cv.merge, cv.resize, cv.add, cv.addWeighted, ROI
 ```
-print(img.shape) #returns a tuple f number of rows, coloumns, and channels
+print(img.shape) #returns a tuple of number of rows, coloumns, and channels
 
 print(img.size) #returns total number of pixels is accessed
 
@@ -13,11 +13,16 @@ cv2.merge((b,g,r)) #to merge the three channels into an image
 ROI- region of interest
 copy a region and paste at another place
 
-cv2.add(src1,src2,dst,mask,dtype= -1) #calculates the per-element sum of two arrays or an array and a scalar. src-source, dst-destination 
+cv2.add(src1,src2,dst,mask,dtype= -1) 
+#calculates the per-element sum of two arrays or an array and a scalar. 
+#src-source, dst-destination 
 
-cv2.resize(img, (512,512)) #to make b0th the images of same size.(512,512) are no. of rows and coloumns
+cv2.resize(img, (512,512)) 
+#to make b0th the images of same size.(512,512) are no. of rows and coloumns
 
-cv2.addWeighted(src1,alpha,src2,beta,gamma,dst,dtype) #calculates weighted sum of two arrays. alpha beta are weights and gamma is a scalar
+cv2.addWeighted(src1,alpha,src2,beta,gamma,dst,dtype) 
+#calculates weighted sum of two arrays. 
+#alpha beta are weights and gamma is a scalar
 ```
 
 
@@ -27,10 +32,18 @@ bitwise operatioons can be vety useful when working with masks
 
 masks are binary images that indicates the pixel in which an operation is to be performed
 ```
-cv2.bitwise_and(src1,src2,dst,mask) #have a look at truth table of the logic AND. 00-0,01-0,10-0,11-1. black as zeros and white as one
-cv2.bitwise_or(src1,src2,dst,mask) #have a look at truth table of logic OR. 00-0,01-1,10-1,11-1.
-cv2.bitwise_xor(src1,src2,dst,mask) #have a look at truth table of logic XOR. 00-0,01-1,10-1,11-0.
-cv2.bitwise_not(src,dst,mask) #have a look at truth table of logic NOT. 0-1,1-0.
+cv2.bitwise_and(src1,src2,dst,mask) 
+#have a look at truth table of the logic AND. 
+#00-0,01-0,10-0,11-1. black as zeros and white as one
+
+cv2.bitwise_or(src1,src2,dst,mask) 
+#00-0,01-1,10-1,11-1.
+
+cv2.bitwise_xor(src1,src2,dst,mask) 
+#00-0,01-1,10-1,11-0.
+
+cv2.bitwise_not(src,dst,mask) 
+#0-1,1-0.
 ```
 
 
@@ -39,7 +52,7 @@ cv2.bitwise_not(src,dst,mask) #have a look at truth table of logic NOT. 0-1,1-0.
 trackbars are useful whenever you want to change some value in your image dynamically at run time 
 ```
 cv2.namedWindow('image') #to create a window with a name
-cv2.createTrackbar(trackbarName, windowName, value, count, onChange) #
+cv2.createTrackbar(trackbarName, windowName, value, count, onChange) 
 cv2.getTrackbarPos(trackbarName, windowName) #get the position of trackbars
 ```
 How to add switch(on/off or switch from colored img to gray)  to trackbars
@@ -55,12 +68,13 @@ Saturation is the amount of color (depth of the pigment)(dominance of Hue)(0-100
 Value is basically the brightness of the color (0-100%)  
 [look at this- C:\Users\Pallavi\Desktop\HSV color pallette.png]
 ```
-hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV) #
+hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV) 
+#to change the color format from bgr to hsv 
 
 lowerRangeBlue = np.array([110, 50, 50]) 
 upperRangeBlue = np.array([130, 255, 255]) 
-mask = cv2.inRange(hsv, lowerRangeBlue, upperRangeBlue) #
-result = cv2.bitwise_and(frame-src1, frame-src2, mask = mask) #
+mask = cv2.inRange(hsv, lowerRangeBlue, upperRangeBlue) 
+result = cv2.bitwise_and(frame-src1, frame-src2, mask = mask) 
 ```
 Use trackbars for lower and upper bounds of hsv
 you can also track an object while capturing a video.
@@ -71,7 +85,7 @@ you can also track an object while capturing a video.
 ## 14. Simple Image Thresholding
 Thresholding a very popular segmentation technique used for separating an object from its background. Process of threhsholding involves comparing each pixel of an image with a predefined threshold value and this type of comparison of each pixel of an image to a threshold value divides all the pixels of the input image into two groups. First group involves the pixels having intensity value lower than threshold value and second group involves the pixels having intensity value greater than threshold value. Using different thresholding technique available in opencv we can give different value to these pixels which have higher and lower value than the threshold value.
 ```
-cv2.threshold(src,thresh,maxval,type,dst) #
+cv2.threshold(src,thresh,maxval,type,dst) 
 type- 1] cv2.THRESH_BINARY
 2] cv2.THRESH_BINARY_INV
 3] cv2.THRESH_TRUNC
@@ -84,7 +98,9 @@ type- 1] cv2.THRESH_BINARY
 ## 15. Adaptive Thresholding
 Adaptive thresholding is a method where the threshold value is calculated for smaller region. 
 ```
-cv2.adaptiveThreshold(src, maxval, adaptiveMethod, thresholdType,blockSize) #maxval is non-zero value assigned to the pixels  for which the condition is satisfied.
+cv2.adaptiveThreshold(src, maxval, adaptiveMethod, thresholdType,blockSize) 
+#maxval is non-zero value assigned to pixels for which condition is satisfied.
+
 adaptiveMethod- 1] cv2.ADAPTIVE_THRESH_MEAN_C
 2] cv2.ADAPTIVE_THRESH_GAUSSIAN_C
 ```
@@ -94,18 +110,20 @@ adaptiveMethod- 1] cv2.ADAPTIVE_THRESH_MEAN_C
 ## 16. matplotlib with OpenCV [some installation things]
 matplotlib is a plotting library for python which gives you wide variety of plotting methods. visit matplotlib.org for more information
 ```
-plt.imshow(src) #
-plt.show() #
+plt.imshow(src) 
+plt.show() 
+```
 matplotlib reads image in rbg format and opencv reads image in bgr format. So, we need to convert bgr into rgb to see same image.
-
-plt.xticks([]), plt.yticks([]) #
+```
+plt.xticks([]), plt.yticks([]) 
 
 titles=['original image', 'binary', 'binaryinv', 'trunc', 'tozero', 'tozeroinv']
 images=[img,th1,th2,th3,th4,th5,th6]
-plt.subplot(numberOfRows,numberOfColumns, index of the image), plt.imshow(image[i], 'gray') #
-plt.title(titles[i]  ) #
-We can include multiple images into one window.
+plt.subplot(noOfRows,noOfColumns, index of the image), plt.imshow(image[i], 'gray') 
+plt.title(titles[i]  ) 
 ```
+We can include multiple images into one window.
+
 
 
 
