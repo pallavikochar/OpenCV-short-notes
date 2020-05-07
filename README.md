@@ -2,15 +2,22 @@
 ## 10. cv.split, cv.merge, cv.resize, cv.add, cv.addWeighted, ROI
 ```
 print(img.shape) #returns a tuple f number of rows, coloumns, and channels
+
 print(img.size) #returns total number of pixels is accessed
+
 print(img.dtype) #returns image datatype is obtained
+
 cv2.split(img) #to split image in three channels i.e,b,g,r
+
 cv2.merge((b,g,r)) #to merge the three channels into an image
 ROI- region of interest
 copy a region and paste at another place
-cv2.add(src1,src2,dst,mask,dtype= -1) #calculates the per-element sum of tw arrays or an array and a scalar. src-source, dst-destination 
-cv2.resize(img, (512,512)) #to make bth the images of same size. (512,512) are no. of rows and coloumns
-cv2.addWeighted(src1,alpha,src2,beta,gamma,dst,dtype) #calculates weighted sum of two arrays, alpha beta are weights and gamma is a scalar
+
+cv2.add(src1,src2,dst,mask,dtype= -1) #calculates the per-element sum of two arrays or an array and a scalar. src-source, dst-destination 
+
+cv2.resize(img, (512,512)) #to make b0th the images of same size.(512,512) are no. of rows and coloumns
+
+cv2.addWeighted(src1,alpha,src2,beta,gamma,dst,dtype) #calculates weighted sum of two arrays. alpha beta are weights and gamma is a scalar
 ```
 
 
@@ -105,13 +112,21 @@ We can include multiple images into one window.
 ## 17. Morphological Transformations
 Morphological transformations are some simple operations based on the image shape. They are normally performed on binary images. Two things required during these transformations are the original image and structuring element or a kernel which decides the nature of operation. Kernel tells you how to change the value of any given pixel by combining it with different amounts of the neighbouring pixels.
 ```
-kernal = np.ones((2,2), np.uint8) #square of 2*2. bigger the size better the dilation but there's a problem-white area increases.
-dilation = cv2.dilate(mask, kernal, numberOfIterations) #
-erosion = cv2.erode(mask,kernal, NumberOfIterations) #
-opening = cv2.morphologyEx(mask, cv2.MORPH_OPEN,kernal) #erosion followed by dilation.
-closing = cv2.morphologyEx(mask, cv2.MORPH_CLOSE,kernal) #dilation followed by erosion
-gradient = cv2.morphologyEx(mask,cv2.MORPH_GRADIENT, kernal) #difference between dilation of erosion of image
-tophat = cv2.morphologyEx(mask,cv2.MORPH_TOPHAT,kernal) #difference between image and opening of image
+kernal = np.ones((2,2), np.uint8) #square of 2*2.bigger the size better the dilation but there's a problem-white area increases.
+dilation = cv2.dilate(mask, kernal, numberOfIterations)
+erosion = cv2.erode(mask,kernal, NumberOfIterations) 
+
+opening = cv2.morphologyEx(mask, cv2.MORPH_OPEN,kernal) 
+#erosion followed by dilation.
+
+closing = cv2.morphologyEx(mask, cv2.MORPH_CLOSE,kernal) 
+#dilation followed by erosion
+
+gradient = cv2.morphologyEx(mask,cv2.MORPH_GRADIENT, kernal) 
+#difference between dilation of erosion of image
+
+tophat = cv2.morphologyEx(mask,cv2.MORPH_TOPHAT,kernal) 
+#difference between image and opening of image
 ```
 
 
@@ -124,23 +139,27 @@ K = 1/K2*[matrix of ones-size-K[height]*K[width]] # K2 = K[width]K[height]
 
 eg. for 5*5 kernel, 
 ```
-kernel = np.ones((5, 5), np.float32)/25 #
-dst = cv2.filter2D(img, -1, kernel) #
+kernel = np.ones((5, 5), np.float32)/25 
+dst = cv2.filter2D(img, -1, kernel) 
+```
 As in one-dimensional signals, images also can be filtered with various low-pass filters(LPF), high-pass filters(HPF) etc.
 LPF helps in removing noises, blurring the images.
 HPF filters helps in finding edges in the images. 
-blur = cv2.blur(img, (5, 5)) #
-Gaussian filter is nothing but using different-weight-kernel, in both x and y direction. S in the result, pixels located in the middle of the kernel have higher weight and pixels located at the side have lower weight.
 ```
+blur = cv2.blur(img, (5, 5)) 
+```
+Gaussian filter is nothing but using different-weight-kernel, in both x and y direction. S in the result, pixels located in the middle of the kernel have higher weight and pixels located at the side have lower weight.
+
 eg. for 5*5 kernel, kernel
 ```
-gblur = cv2.GaussianBlur(img, (5, 5), 0) #  
+gblur = cv2.GaussianBlur(img, (5, 5), 0)  
 ```
 Median filter is something that replace each pixel's value with the median of its neighboring pixels. This method is great when dealing with 'salt and pepper noise'.
 ``` 
 median = cv2.medianBlur(img, 5) #kernel size must be odd here
 
-bilateralfilter = cv2.bilateralFilter(img, 9, 75, 75) #borders are preserved i.e, are kept sharp while rest image is blurred.
+bilateralfilter = cv2.bilateralFilter(img, 9, 75, 75) 
+#borders are preserved i.e, are kept sharp while rest image is blurred.
 ```
 
 
@@ -149,15 +168,18 @@ bilateralfilter = cv2.bilateralFilter(img, 9, 75, 75) #borders are preserved i.e
 An image gradient is a directional change in the intensity or color in an image.
 Image gradient methods- laplacian derivatives,
 ```
-lap = cv2.Laplacian(img, cv2.CV_64F, ksize=1) #
-lap = np.unit8(np.absolute(lap)) #
-sobelX = cv2.Sobel(img, cv2.CV_64F, 1, 0) #change in direction in the intensity is in X direction-vertical
-sobelY = cv2.Sobel(img, cv2.CV_64F, 0, 1) #change in direction in the intensity is in Y direction- horizontal
+lap = cv2.Laplacian(img, cv2.CV_64F, ksize=1) 
+lap = np.unit8(np.absolute(lap)) 
+sobelX = cv2.Sobel(img, cv2.CV_64F, 1, 0) 
+#change in direction in the intensity is in X direction-vertical
+
+sobelY = cv2.Sobel(img, cv2.CV_64F, 0, 1) 
+#change in direction in the intensity is in Y direction- horizontal
 
 sobelX = np.unit8(np.absolute(sobelX)) 
 sobelY = np.unit8(np.absolute(sobelY)) 
 
-sobelCombined = cv2.bitwise_or(sobelX, sobelY) #
+sobelCombined = cv2.bitwise_or(sobelX, sobelY) 
 ```
 
 
@@ -172,7 +194,7 @@ Canny edge detection algorithm is composed of 5 steps:
 4. Double threshold #to determine the potential edges
 5. Edge Tracking by Hysteresis #to finalize the detection of edges by suppressing all the other edges that are weak or not connected to strong edges
 ```
-canny = cv2.Canny(img, threshold1, threshold2 ) #
+canny = cv2.Canny(img, threshold1, threshold2 )
 ```
 use trackbars for better edge detection
 
@@ -190,14 +212,14 @@ lr = cv2.pyrDown(img) #lower Resolution
 hr = cv2.pyrUp(img) #higher Resolution
 layer = img.copy() #copies the image
 gp = [layer] #gaussian pyramid
-gp.append(layer) #
+gp.append(layer) 
 ```
 2] Laplacian pyramid #formed from gaussian pyramid. Theere is no exclusive function for creating laplacian pyramid.n  
 A level of Laplacian Pyramid is formed by the difference between that level in Gaussian Pyramid and expanded version of its upper level in Gaussian Pyramid. 
 ```
 lp = [layer] #laplacian pyramid
-gaussianExtended = cv2.pyrUp(gp[i]) #
-laplacian = cv2.subtract(gp[i-1],gaussianExtended) #
+gaussianExtended = cv2.pyrUp(gp[i]) 
+laplacian = cv2.subtract(gp[i-1],gaussianExtended) 
 ```
 
 
@@ -205,7 +227,8 @@ laplacian = cv2.subtract(gp[i-1],gaussianExtended) #
 ## 22. Image Blending using Pyramids in OpenCV
 To know the shape of the image- img.shape
 ```
-apple_orange = np.hstack((apple[:, :256], orange[:, 256:])) #but it is visible that one is apple and other is orange
+apple_orange = np.hstack((apple[:, :256], orange[:, 256:])) 
+#but it is visible that one is apple and other is orange
 ```
 1] Load the two images of apple and orange
 2] Find the Gaussian Pyramids for apple and orange 
@@ -218,8 +241,8 @@ n =0
 for  apple_lap, orange_lap in zip(lp_apple, lp_orange):
 	n = n+1
 	cols, rows, ch = apple_lap.shape
-	laplacian = np.hstack((apple_lap[:, 0:int(cols/2)], orange_lap[:, int(cols/2):])) #
-	apple_orange_pyramid.append(laplacian) #
+	laplacian = np.hstack((apple_lap[:, 0:int(cols/2)], orange_lap[:, int(cols/2):]))
+	apple_orange_pyramid.append(laplacian)
 
 #now reconstruct
 apple_orange_reconstruct = apple_orange_pyramid[0]
@@ -233,12 +256,14 @@ apple_orange_reconstruct = cv2.add(apple_orange_pyramid[i], apple_orange_reconst
 ## 23. Find and Draw Contours with OpenCV in Python
 Contours can be explained as the curve joining all the continuous point along the boundary which are having the same color or intensity. Contour can be useful for shape analysis, object detection or object recognition.
 ```
-contours, hierarchy = cv2.findContours(image, mode, method) #mode - cv2.RETR_TREE, method - cv2.CHAIN_APPROX_NONE
+contours, hierarchy = cv2.findContours(image, mode, method) 
+#mode - cv2.RETR_TREE, method - cv2.CHAIN_APPROX_NONE
 ```
 contours is a python list of all the contours in the iamge. Each individual contour is a Numpy array of (x, y) coordinates of boundary points of the object.  
  
 ```
-cv2.drawContours(img, contours, -1, (0, 255, 0), 3) #contour index = -1 gives all contours
+cv2.drawContours(img, contours, -1, (0, 255, 0), 3) 
+#contour index = -1 gives all contours
 ```
 
 
