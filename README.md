@@ -131,8 +131,8 @@ We can include multiple images into one window.
 ## 17. Morphological Transformations
 Morphological transformations are some simple operations based on the image shape. They are normally performed on binary images. Two things required during these transformations are the original image and structuring element or a kernel which decides the nature of operation. Kernel tells you how to change the value of any given pixel by combining it with different amounts of the neighbouring pixels.
 ```
-kernal = np.ones((2,2), np.uint8) #square of 2*2.bigger the size better the 
-dilation but there's a problem-white area increases.
+kernal = np.ones((2,2), np.uint8) #square of 2*2.bigger the size better 
+the dilation but there's a problem-white area increases.
 dilation = cv2.dilate(mask, kernal, numberOfIterations)
 erosion = cv2.erode(mask,kernal, NumberOfIterations) 
 
