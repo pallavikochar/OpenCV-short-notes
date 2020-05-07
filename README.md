@@ -89,7 +89,8 @@ cv2.threshold(src,thresh,maxval,type,dst)
 type- 1] cv2.THRESH_BINARY
 2] cv2.THRESH_BINARY_INV
 3] cv2.THRESH_TRUNC
-4] cv2.THRESH_TOZERO #pixel value less than threshold, value assigned to pixel is 0. Else pixel value remain the same.
+4] cv2.THRESH_TOZERO #if pixel value is less than threshold, value assigned 
+to pixel is 0. Else pixel value remain the same.
 5] cv2.THRESH_TOZERO_INV
 ```
 
