@@ -85,7 +85,7 @@ you can also track an object while capturing a video.
 ## 14. Simple Image Thresholding
 Thresholding a very popular segmentation technique used for separating an object from its background. Process of threhsholding involves comparing each pixel of an image with a predefined threshold value and this type of comparison of each pixel of an image to a threshold value divides all the pixels of the input image into two groups. First group involves the pixels having intensity value lower than threshold value and second group involves the pixels having intensity value greater than threshold value. Using different thresholding technique available in opencv we can give different value to these pixels which have higher and lower value than the threshold value.
 ```
-cv2.threshold(src,thresh,maxval,type,dst) 
+_, th = cv2.threshold(src,thresh,maxval,type) 
 type- 1] cv2.THRESH_BINARY
 2] cv2.THRESH_BINARY_INV
 3] cv2.THRESH_TRUNC
@@ -99,7 +99,7 @@ to pixel is 0. Else pixel value remain the same.
 ## 15. Adaptive Thresholding
 Adaptive thresholding is a method where the threshold value is calculated for smaller region. 
 ```
-cv2.adaptiveThreshold(src, maxval, adaptiveMethod, thresholdType,blockSize) 
+th2 = cv2.adaptiveThreshold(src, maxval, adaptiveMethod, thresholdType,blockSize) 
 #maxval is non-zero value assigned to pixels for which condition is satisfied.
 
 adaptiveMethod- 1] cv2.ADAPTIVE_THRESH_MEAN_C
